@@ -1,0 +1,4 @@
+SELECT p.codProyecto, CONCAT(n.nom_not,' ',n.mat_not,' ',n.pat_not) AS notario, p.fechaInicio 
+FROM proyectos AS p, notarios AS n
+WHERE p.codNotario = n.cod_not AND
+p.terminado=0;
