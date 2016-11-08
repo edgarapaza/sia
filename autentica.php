@@ -9,18 +9,6 @@ $_SESSION['log_usu']['log_usu'] = $usuario = $_POST['txt-usuario'];
 $clave                          = $_POST['txt-clave'];
 $boton                          = $_POST['btn-aceptar'];
 
-/*
-echo $usuario;
-echo $clave;
-echo $boton;
- */
-
-//$sConsulta	=	"SELECT NOW() as fechita";
-//$oFecha	=	mysqli($sConsulta);
-
-//$aFecha = $oFecha->fetch_assoc();
-//print_r($aFecha);
-
 $sConsulta = "SELECT u.* FROM usuarios u WHERE u.log_usu = '{$usuario}' AND u.psw_usu='{$clave}'";
 
 if ($oUsuario = mysqli($sConsulta)) {

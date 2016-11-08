@@ -7,26 +7,28 @@
 		<link rel="stylesheet" href="">
 		<script languaje="Javascript">
 			function justNumbers(e)
-	{
-		var keynum=window.event ? window.event.keyCode : e.which;
-		if((keynum == 8) || (keynum == 46))
-			retrn true;
+			{
+				var keynum=window.event ? window.event.keyCode : e.which;
+				if((keynum == 8) || (keynum == 46))
+					retrn true;
 
-		return /\d/.test(String.fromCharCode(keynum));
+				return /\d/.test(String.fromCharCode(keynum));
 
-	}
+			}
 		</script>
 	</head>
-		<body>
+	<body>
 
 	</body>
 	</html>
 
 
 
-<?php
+	<?php
 
-
+	session_start();
+	$_SESSION['proyecto'] = $_REQUEST['codProy'];
+	#printf("Codigo de sesion: %s",$_SESSION['proyecto']);
 
 
 	include ("inc/mysql.php");
@@ -42,37 +44,39 @@
 	$result=mysqli($consulta);
 
 
-?>
+	?>
 
 	<div class="container">
 
 		<div class="row">
 			<div class="col-md-12">
 
-				<center><h3>Ingreso de Índices</h3></center>
-<?php
-	if (isset($_SESSION['mensaje']) AND $_SESSION['mensaje'] != '') {
-?>
-				<div class="alert alert-info">
-					<?php echo $_SESSION['mensaje']; unset($_SESSION['mensaje']);?>
-				</div>
-<?php
-	}
-?>				
+				<center><h3 class="bg-success">Ingreso de Índices</h3></center>
+				<?php
+				if (isset($_SESSION['mensaje']) AND $_SESSION['mensaje'] != '') {
+					?>
+					<div class="alert alert-info">
+						<?php echo $_SESSION['mensaje']; unset($_SESSION['mensaje']);?>
+					</div>
+					<?php
+				}
+				?>				
 
 				<form class="form-horizontal" method='post' name='fregistro' id='fregistro' action='nuevo-verifica.php' role='form'>
+					<p>Notario: <?php echo $_REQUEST['Notario'];?></p>
 
 					<div class="form-group">
-						<label for="txt-proyecto" class="col-sm-2 control-label">N° Proyecto :</label>
-						<div class="col-sm-1">
-							<input type="text" class="form-control" id="txt-proyecto" name="txt-proyecto" required>
+						<label for="txt-proyecto" class="col-xm-12 col-md-2 control-label">N° Proyecto:</label>
+						<div class="col-xs-2">
+							<label><?php printf("Proyecto %s",$_SESSION['proyecto']);?></label>
+							<input type="hidden" id="txt-proyecto" name="txt-proyecto" value="<?php echo $_SESSION['proyecto'];?>">
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label for="txt-folio" class="col-sm-2 control-label">Folio :</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control" id="txt-folio" name="txt-folio" placeholder="Ingrese el Folio" required> VTA
+							<input type="text" class="form-control" id="txt-folio" name="txt-folio" placeholder="Ingrese el Folio" required><span class="alert" style="font-style: italic; color:#B7B7B7">Ejem: 123 Vta</span>
 						</div>
 					</div>
 
@@ -90,12 +94,7 @@
 						</div>
 					</div>
 
-					<div class="form-group">
-						<label for="txt-notario" class="col-sm-2 control-label">Notario :</label>
-						<div class="col-sm-6">
-							<input type="text" class="form-control" id="txt-notario" name="txt-notario" required>
-						</div>
-					</div>
+					
 
 					<div class="form-group">
 						<label for="txt-otorgante" class="col-sm-2 control-label">Otorgante :</label>
@@ -117,7 +116,7 @@
 							<input type="text" class="form-control" id="txt-dia" name="txt-dia" placeholder="Día" maxlength="02" required>
 						</div>
 						<div class="col-sm-2">
-						<select class="form-control" id="txt-mes" name="txt-mes" required>
+							<select class="form-control" id="txt-mes" name="txt-mes" required>
 								<option default>Mes</option>
 								<option value="01">Enero</option>
 								<option value="02">Febrero</option>
@@ -132,9 +131,9 @@
 								<option value="11">Noviembre</option>
 								<option value="12">Diciembre</option>
 								
-						</select>
-					    </div>
-					    <div class="col-sm-1">
+							</select>
+						</div>
+						<div class="col-sm-1">
 							<input type="text" class="form-control" id="txt-year" name="txt-year" placeholder="Año" maxlength="04" required>
 						</div>
 					</div>
@@ -162,6 +161,6 @@
 
 	</div>
 
-<?php
+	<?php
 	require("pie.php");
-?>
+	?>

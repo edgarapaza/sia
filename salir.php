@@ -3,9 +3,9 @@
 		session_start();
 	}
 
-/*echo "<pre>";
-print_r($_SESSION);
-echo "</pre>";*/
+	session_destroy();
+	session_unset();
+	
  if (isset($_SESSION['log_usu']['autenticado'])) {
  	$_SESSION['log_usu']['autenticado'] = NULL;
  	unset($_SESSION['log_usu']['autenticado']);

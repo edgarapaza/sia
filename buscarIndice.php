@@ -1,19 +1,19 @@
 <?php
-	include ("inc/mysql.php");
-	require("cabecera.php");
-	include ("Notarios.php");
+include ("inc/mysql.php");
+require("cabecera.php");
+include ("Notarios.php");
 
-	if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autenticado']) {
-	}else{
-		header("Location:index.php");
-	}
+if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autenticado']) {
+}else{
+	header("Location:index.php");
+}
 
-	require("menu.php");
-	
+require("menu.php");
 
-	$consulta='SELECT cod_not,nom_not,pat_not,mat_not FROM notarios';
-	$result=mysqli($consulta);
-	
+
+$consulta='SELECT cod_not,nom_not,pat_not,mat_not FROM notarios';
+$result=mysqli($consulta);
+
 
 $notarios = new Notarios();
 $dat = $notarios->ConsultaNotarios();
@@ -22,50 +22,50 @@ $dat = $notarios->ConsultaNotarios();
 
 ?>
 
-	<div class="container">
+<div class="container">
 
-		<div class="row">
-			<div class="col-md-12">
+	<div class="row">
+		<div class="col-md-12">
 
-				<center><h3>Buscador de Índices</h3></center>
-<?php
-	if (isset($_SESSION['mensaje']) AND $_SESSION['mensaje'] != '') {
-?>
+			<center><h3>Buscador de Índices</h3></center>
+			<?php
+			if (isset($_SESSION['mensaje']) AND $_SESSION['mensaje'] != '') {
+				?>
 				<div class="alert alert-info">
 					<?php echo $_SESSION['mensaje']; unset($_SESSION['mensaje']);?>
 				</div>
-<?php
-	}
-?>				
+				<?php
+			}
+			?>				
 
-				<form class="form-horizontal" action='buscarTodo.php' method='post' name='fregistro' id='fregistro' role='form'>
-					<div class="form-group">
-						<label for="txtTodo" class="col-sm-2 control-label">Buscar Todo :</label>
-						<div class="col-sm-2">
-							<button type="submit" name="todo" value="todo" href="#listaIndice.php"  class="btn btn-primary" > <span class="glyphicon glyphicon-search"></span> Buscar Todo</button>
-						</div>
+			<form class="form-horizontal" action='buscarTodo.php' method='post' name='fregistro' id='fregistro' role='form'>
+				<div class="form-group">
+					<label for="txtTodo" class="col-sm-2 control-label">Buscar Todo :</label>
+					<div class="col-sm-2">
+						<button type="submit" name="todo" value="todo" href="#listaIndice.php"  class="btn btn-primary" > <span class="glyphicon glyphicon-search"></span> Buscar Todo</button>
 					</div>
-				</form>
+				</div>
+			</form>
 
-				<form class="form-horizontal" action='buscarNotario.php' method='post' name='fregistro' id='fregistro' role='form'>
-					<div class="form-group">
-						<label for="txtNotario" class="col-sm-2 control-label">Buscar por Notario :</label>
-						<div class="col-sm-6">
-							<select class="form-control" id="txtNotario" name="txtNotario" >
-								<option value="0">SELECCIONE NOTARIO</option>
-									<?php 
-									
+			<form class="form-horizontal" action='buscarNotario.php' method='post' name='fregistro' id='fregistro' role='form'>
+				<div class="form-group">
+					<label for="txtNotario" class="col-sm-2 control-label">Buscar por Notario :</label>
+					<div class="col-sm-6">
+						<select class="form-control" id="txtNotario" name="txtNotario" >
+							<option value="0">SELECCIONE NOTARIO</option>
+							<?php 
 
-									while ($row = $dat->fetch_assoc()) { ?>
-										<option value="<?php echo $row['codNotario']; ?>">
-										<?php 
-											$codigo = $row['codNotario'];
-											$dato = $notarios->NombreNotario($codigo);
-											$nombre = $dato->fetch_assoc();
-											echo $nombre['notario'];
-										?></option>
 
-									<?php } ?>	
+							while ($row = $dat->fetch_assoc()) { ?>
+							<option value="<?php echo $row['codNotario']; ?>">
+								<?php 
+								$codigo = $row['codNotario'];
+								$dato = $notarios->NombreNotario($codigo);
+								$nombre = $dato->fetch_assoc();
+								echo $nombre['notario'];
+								?></option>
+
+								<?php } ?>	
 
 							</select>
 
@@ -80,7 +80,7 @@ $dat = $notarios->ConsultaNotarios();
 					<div class="form-group">
 						<label for="txtOtorgante" class="col-sm-2 control-label">Buscar por Otorgante :</label>
 						<div class="col-sm-4">
-							<input type="text" class="form-control" id="txtOtorgante" name="txtOtorgante" placeholder="Ingrese el Otorgante">
+							<input type="search" class="form-control" id="txtOtorgante" name="txtOtorgante" placeholder="Ingrese el Otorgante">
 						</div>
 						<div class="col-sm-2">
 							<button type="submit" name="otorgante" value="otorgante" class="btn btn-primary" > <span class="glyphicon glyphicon-search"></span> Buscar Por Otorgante</button>
@@ -104,7 +104,7 @@ $dat = $notarios->ConsultaNotarios();
 					<div class="form-group">
 						<label for="txtFecha" class="col-sm-2 control-label">Buscar por Fecha :</label>
 						<div class="col-sm-2">
-							<input type="text" class="form-control" id="txtFecha" name="txtFecha" placeholder="<?php echo $fecha = date('Y-m-d');?>" maxlength="10">Formato: Año-Mes-Día
+							<input type="date" class="form-control" id="txtFecha" name="txtFecha" placeholder="<?php echo $fecha = date('Y-m-d');?>" maxlength="10">Formato: Año-Mes-Día
 						</div>
 						<div class="col-sm-2">
 							<button type="submit" name="fecha" value="fecha" class="btn btn-primary" > <span class="glyphicon glyphicon-search"></span> Buscar Por Fecha</button>
@@ -136,13 +136,13 @@ $dat = $notarios->ConsultaNotarios();
 					</div>
 				</form>
 
-					</div>
 			</div>
 		</div>
+	</div>
 
 	
 
-<?php
+	<?php
 	require("pie.php");
-?>
+	?>
 

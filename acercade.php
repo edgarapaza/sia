@@ -15,7 +15,7 @@
 			<div class="col-md-offset-4 col-md-4">
 
 				<div class="alert alert-info">
-					<p>Este sitio está siendo desarrollado por Jhoel Arizaca Cari</p>
+					<p>Este sitio está siendo desarrollado por Henry Salvador Musaja Onori</p>
 				</div>
 				
 			</div>

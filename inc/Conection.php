@@ -11,7 +11,7 @@
 				exit();
 			}
 
-			//echo $mysqli->host_info. " Test eb Conection.php";
+			#echo $mysqli->host_info. " Test eb Conection.php";
 			return $mysqli;
 		}
 	}
