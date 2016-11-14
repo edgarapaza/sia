@@ -1,11 +1,11 @@
 <?php
-	require("cabecera.php");
+require("cabecera.php");
 
-	if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autenticado']) {
-	}else{
-		header("Location:index.php");
-	}
-	require("menu.php");
+if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autenticado']) {
+}else{
+	header("Location:index.php");
+}
+require("menu.php");
 ?>
 
 
@@ -35,15 +35,21 @@
 					?>
 				</div>
 			</div>
+			<div class="col-md-12">
+				<h3>Busqueda por Indices</h3>
+				<p>Utilize este boton para buscar el los INDICES digitalizados</p>
+				<a href="buscarIndice.php" class="btn btn-success">Comenzar la Busqueda  -->  </a>
+			</div>
+
 		</div>
 
 	</div>
 
 </body>
 </html>
-	
+
 
 <?php
-	require("pie.php");
+require("pie.php");
 ?>
 
