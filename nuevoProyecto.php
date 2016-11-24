@@ -14,7 +14,6 @@
      $notarios = new Notarios();
      $dat = $notarios->Notarios();
 
-
 ?>
 
 	<div class="container">

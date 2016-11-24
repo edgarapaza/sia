@@ -6,7 +6,7 @@
 
 		$bien=$_POST["txtBien"];
 
-		$consulta	= "SELECT indices.codIndice,CONCAT(notarios.nom_not,' ',notarios.mat_not,' ',notarios.pat_not) AS notario,indices.otorgante,indices.favorecido,indices.fecha,indices.subserie,indices.folio,indices.escritura,indices.bien FROM indices INNER JOIN notarios ON indices.codNotario=notarios.cod_not WHERE indices.bien LIKE '%$bien%'";
+		$consulta	= "SELECT indices.codIndice,CONCAT(Notario.nom_not,' ',Notario.mat_not,' ',Notario.pat_not) AS notario,indices.otorgante,indices.favorecido,indices.fecha,indices.subserie,indices.folio,indices.escritura,indices.bien FROM indices INNER JOIN Notario ON indices.codNotario=Notario.codNotario WHERE indices.bien LIKE '%$bien%'";
 		
 		
 		$result=mysqli($consulta);

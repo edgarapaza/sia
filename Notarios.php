@@ -26,21 +26,16 @@
 		}
 
 		public function NombreNotario($codNotario){
-			$sql = "SELECT CONCAT(nom_not,' ',pat_not,' ',mat_not) AS notario FROM notarios WHERE cod_not = ". $codNotario;
+			$sql = "SELECT CONCAT(nom_not,' ',pat_not,' ',mat_not) AS notario FROM Notario WHERE codNotario = ". $codNotario;
 			$nombre = $this->con->query($sql);
 			return $nombre;
 		}
-
-
-
-
-
 
 		public function Notarios(){
 			
 			//echo $this->con->host_info. " Dentro de Notarios";
 			//$sql = "SELECT cod_not FROM notarios";
-			$sql = "SELECT CONCAT(nom_not,' ',pat_not,' ',mat_not) AS notario, cod_not FROM notarios ORDER BY pat_not";
+			$sql = "SELECT CONCAT(nom_not,' ',pat_not,' ',mat_not) AS notario, codNotario FROM Notario ORDER BY pat_not";
 			$datos = $this->con->query($sql);
 			return $datos;			
 		}

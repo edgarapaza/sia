@@ -11,7 +11,7 @@ if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autentic
 require("menu.php");
 
 
-$consulta='SELECT cod_not,nom_not,pat_not,mat_not FROM notarios';
+$consulta='SELECT codNotario,nom_not,pat_not,mat_not FROM Notario';
 $result=mysqli($consulta);
 
 

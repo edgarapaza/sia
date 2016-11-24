@@ -1,1 +1,0 @@
-SELECT escritura, folio, subserie, fecha, codNotario FROM indices WHERE codNotario = 21 ORDER BY codIndice DESC LIMIT 1;
