@@ -18,7 +18,7 @@
 				<li><a href="buscarIndice.php">Buscador de Índices</a></li>
 				<li><a href="acercade.php">Acerca de</a></li>
 				<li><a href="#contact">Contacto</a></li>
-				<li><a href="salir.php">Salir</a></li>
+				<li><a href="../view/salir.php">Salir</a></li>
 			</ul>
 		</div><!--/.nav-collapse -->
 	</div>

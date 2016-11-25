@@ -1,41 +1,28 @@
 <?php
-	require("cabecera.php");
-	require_once("inc/mysql.php");
+session_start();
 
-	if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autenticado']) {
-		$notario=$_POST["txtNotario"];
-		$consulta	= "SELECT indices.codIndice,CONCAT(notarios.nom_not,' ',notarios.mat_not,' ',notarios.pat_not) AS notario,indices.otorgante,indices.favorecido,indices.fecha,indices.subserie,indices.folio,indices.escritura,indices.bien FROM indices INNER JOIN notarios ON indices.codNotario=notarios.cod_not WHERE indices.codNotario=$notario";
+if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autenticado'])
+{
+	require("cabecera.php");
+	require("menu.php");
+	require_once("../inc/Conection.php");
+
+	//Conexion con Base de Datos
+	$conn = new Conection();
+	$link = $conn->Conection();
+
+	$notario=$_POST["txtNotario"];
+
+	$sql = "SELECT indices.codIndice,CONCAT(Notario.nom_not,' ',Notario.mat_not,' ',Notario.pat_not) AS notario,indices.otorgante,indices.favorecido,indices.fecha,indices.subserie,indices.folio,indices.escritura,indices.bien FROM indices INNER JOIN Notario ON indices.codNotario=Notario.codNotario WHERE indices.codNotario = $notario";
 		//echo $consulta;
 		
-		$result=mysqli($consulta);
-		$total	=	$result->num_rows;
-
-		
-		
-		}else{
-		header("Location:index.php");
-	}
-
-	require("menu.php");
-
-	
-
-	//echo $notario;
-
+	$result = $link->query($sql);
+	$total	= $result->num_rows;
 
 ?>
 <div class="container">
-
 		<div class="row">
 			<div class="col-md-12">
-			<?php 
-				$sql="SELECT CONCAT(nom_not,' ',mat_not,' ',pat_not)as notario from notarios where cod_not=$notario";
-				//echo $sql;
-				$nombre = mysqli($sql);
-				$nom = $nombre->fetch_assoc()
-			 ?>
-
-			<center> <?php echo "<h3>Lista de Índices por el Notario $nom[notario]</h3>"; ?></center>
 			<?php echo "<h4>Número de Índices Encontrados: $total Índices</h4> " ?>
 			
 					<table class="table table-striped table-bordered table-condensed" >
@@ -103,15 +90,7 @@
 
 <?php
 	require("pie.php");
+	}else{
+		header("Location:../index.php");
+	}
 ?>
-
-
-	
-						
-
-				
-
-<?php
-	require("pie.php");
-?>
-

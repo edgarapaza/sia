@@ -1,25 +1,12 @@
 <?php
-include ("inc/mysql.php");
-require("cabecera.php");
-include ("Notarios.php");
+session_start();
 
-if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autenticado']) {
-}else{
-	header("Location:index.php");
-}
-
-require("menu.php");
-
-
-$consulta='SELECT codNotario,nom_not,pat_not,mat_not FROM Notario';
-$result=mysqli($consulta);
-
-
-$notarios = new Notarios();
-$dat = $notarios->ConsultaNotarios();
-
-
-
+if(isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autenticado'])
+{
+	
+	include "cabecera.php";
+	include "menu.php";
+	
 ?>
 
 <div class="container">
@@ -51,30 +38,18 @@ $dat = $notarios->ConsultaNotarios();
 				<div class="form-group">
 					<label for="txtNotario" class="col-sm-2 control-label">Buscar por Notario :</label>
 					<div class="col-sm-6">
+
 						<select class="form-control" id="txtNotario" name="txtNotario" >
 							<option value="0">SELECCIONE NOTARIO</option>
-							<?php 
+							<option value="21">Miguel Pino Chavez</option>
+						</select>
 
-
-							while ($row = $dat->fetch_assoc()) { ?>
-							<option value="<?php echo $row['codNotario']; ?>">
-								<?php 
-								$codigo = $row['codNotario'];
-								$dato = $notarios->NombreNotario($codigo);
-								$nombre = $dato->fetch_assoc();
-								echo $nombre['notario'];
-								?></option>
-
-								<?php } ?>	
-
-							</select>
-
-						</div>
-						<div class="col-sm-2">
-							<button type="submit" name="notario" value="notario" class="btn btn-primary" > <span class="glyphicon glyphicon-search"></span> Buscar Por Notario</button>
-						</div>
-					</div>	
-				</form>
+					</div>
+					<div class="col-sm-2">
+						<button type="submit" name="notario" value="notario" class="btn btn-primary" > <span class="glyphicon glyphicon-search"></span> Buscar Por Notario</button>
+					</div>
+				</div>	
+			</form>
 
 				<form class="form-horizontal" action='buscarOtorgante.php' method='post' name='fregistro' id='fregistro' role='form'>
 					<div class="form-group">
@@ -144,5 +119,8 @@ $dat = $notarios->ConsultaNotarios();
 
 	<?php
 	require("pie.php");
+	}else{
+	header("Location:../index.php");
+	}
 	?>
 

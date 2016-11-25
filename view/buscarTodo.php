@@ -1,20 +1,21 @@
 <?php
+session_start();
+
+if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autenticado'])
+{
 	require("cabecera.php");
-	require_once("inc/mysql.php");
+	require("menu.php");
+	require_once("../inc/Conection.php");
 
-	if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autenticado']) {
+	//Conexion con Base de Datos
+	$conn = new Conection();
+	$link = $conn->Conection();
 
-		$consulta	= "SELECT indices.codIndice,CONCAT(notarios.nom_not,' ',notarios.mat_not,' ',notarios.pat_not) AS notario,indices.otorgante,indices.favorecido,indices.fecha,indices.subserie,indices.folio,indices.escritura,indices.bien FROM indices INNER JOIN notarios ON indices.codNotario=notarios.cod_not";
+	$sql = "SELECT indices.codIndice,CONCAT(Notario.nom_not,' ',Notario.mat_not,' ',Notario.pat_not) AS notario,indices.otorgante,indices.favorecido,indices.fecha,indices.subserie,indices.folio,indices.escritura,indices.bien FROM indices INNER JOIN Notario ON indices.codNotario=Notario.codNotario";
 		//echo $trabajando;
 		
-		$result=mysqli($consulta);
-		$total	=	$result->num_rows;
-		
-		}else{
-		header("Location:index.php");
-	}
-
-	require("menu.php");
+	$result = $link->query($sql);
+	$total	= $result->num_rows;
 
 ?>
 
@@ -41,11 +42,11 @@
 							</tr>				
 						</thead>
 						<tbody>
-<?php
-							$_SESSION['oPDF'] = array();
-							while ($lista1 = $result->fetch_assoc()) {
-								$_SESSION['oPDF'][] = $lista1;
-?>
+						<?php
+						$_SESSION['oPDF'] = array();
+						while ($lista1 = $result->fetch_assoc()) {
+						$_SESSION['oPDF'][] = $lista1;
+						?>
 								<tr>
 									<td><?php echo $lista1['codIndice'];?></td>
 									<td><?php echo $lista1['notario'];?></td>
@@ -63,9 +64,9 @@
 
 									</td>
 								</tr>
-<?php
-							}
-?>				
+						<?php
+						}
+						?>				
 						</tbody>
 						<tfoot>
 					
@@ -77,13 +78,6 @@
 						
 					</div>	
 
-
-
-						
-
-				
-
-
 			</div>
 		</div>
 
@@ -91,5 +85,7 @@
 
 <?php
 	require("pie.php");
+	}else{
+		header("Location:../index.php");
+	}
 ?>
-

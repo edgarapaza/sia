@@ -1,24 +1,23 @@
 <?php
+session_start();
+
+if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autenticado'])
+{
+
 	require("cabecera.php");
-	require_once("inc/mysql.php");
-
-	if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autenticado']) {
-
-		$serie=$_POST["txtSerie"];
-
-		$consulta	= "SELECT indices.codIndice,CONCAT(Notario.nom_not,' ',Notario.mat_not,' ',Notario.pat_not) AS notario,indices.otorgante,indices.favorecido,indices.fecha,indices.subserie,indices.folio,indices.escritura,indices.bien FROM indices INNER JOIN Notario ON indices.codNotario=Notario.codNotario WHERE indices.subserie LIKE '%$serie%'";
-		
-		
-		$result=mysqli($consulta);
-		$total	=	$result->num_rows;
-		
-		
-		}else{
-		header("Location:index.php");
-	}
-
 	require("menu.php");
+	require_once("../inc/Conection.php");
 
+	//Conexion con Base de Datos
+	$conn = new Conection();
+	$link = $conn->Conection();
+
+	$serie=$_POST["txtSerie"];
+
+	$sql = "SELECT indices.codIndice,CONCAT(Notario.nom_not,' ',Notario.mat_not,' ',Notario.pat_not) AS notario,indices.otorgante,indices.favorecido,indices.fecha,indices.subserie,indices.folio,indices.escritura,indices.bien FROM indices INNER JOIN Notario ON indices.codNotario=Notario.codNotario WHERE indices.subserie LIKE '%$serie%'";
+		
+	$result = $link->query($sql);
+	$total	= $result->num_rows;
 ?>
 
 	<div class="container">
@@ -94,5 +93,8 @@
 
 <?php
 	require("pie.php");
+	}else{
+		header("Location:../index.php");
+	}
 ?>
 

@@ -44,9 +44,7 @@
 
 					<h3>Identificacion de Usuario</h3>
 
-
-					<?php echo $msg;?>
-					<form action="autentica.php" method="post" id="form-autentica" name="form-autentica">
+					<form action="controller/autentica.php" method="post" id="form-autentica" name="form-autentica">
 						<div class="form-group">
 							<label for="txt-usuario">Usuario :</label>
 							<input type="text" class="form-control" id="txt-usuario" name="txt-usuario" placeholder="Ingrese Usuario" maxlength="10" required>
@@ -65,8 +63,3 @@
 		</div>
 	</body>
 	</html>
-
-	<?php
-	require ("pie.php");
-	?>
-

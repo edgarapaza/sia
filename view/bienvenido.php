@@ -8,9 +8,6 @@ if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autentic
 require("menu.php");
 ?>
 
-
-<!DOCTYPE html>
-<html>
 <head>
 	<title>SIA</title>
 	<style type="text/css">
