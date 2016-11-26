@@ -34,7 +34,7 @@ if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autentic
 					}
 				?>				
 
-				<form class="form-horizontal" method='post' name='fregistro' id='fregistro' action='nuevo-proyecto-verifica.php' role='form'>
+				<form class="form-horizontal" method='post' name='fregistro' id='fregistro' action='../controller/nuevo-proyecto-verifica.php' role='form'>
 
 					<div class="form-group">
 						<label for="txt-notario" class="col-sm-2 control-label">Notario :</label>
@@ -43,17 +43,13 @@ if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autentic
 								<option value="0">SELECCIONE NOTARIO</option>
 									<?php 
 
-									while ($row = $dat->fetch_assoc()) { ?>
-										<option value="<?php echo $row['cod_not']; ?>">
-											<?php echo $row['notario']; ?>
+									while ($row = $dat->fetch_array()) { ?>
+										<option value="<?php echo $row[1]; ?>">
+											<?php echo $row[0]; ?>
 										</option>
 									<?php } ?>	
 
 							</select>
-
-
-							
-
 						</div>
 					</div>
 
@@ -71,13 +67,11 @@ if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autentic
 						</div>
 					</div>
 
-
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-6 ">
 							<button type="submit" class="btn btn-primary">Crear Proyecto</button>
 						</div>
 					</div>
-
 
 				</form>
 

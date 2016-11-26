@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autenticado'])
+{
+	
+	$_SESSION['proyecto'] = $_REQUEST['codProy'];
+	
+	require("cabecera.php");
+	require("menu.php");
+
+?>
 	<!DOCTYPE html>
 	<html>
 	<head>
@@ -19,33 +31,6 @@
 	</head>
 	<body>
 
-	</body>
-	</html>
-
-
-
-	<?php
-
-	session_start();
-	$_SESSION['proyecto'] = $_REQUEST['codProy'];
-	#printf("Codigo de sesion: %s",$_SESSION['proyecto']);
-
-
-	include ("inc/mysql.php");
-	require("cabecera.php");
-
-	if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autenticado']) {
-	}else{
-		header("Location:index.php");
-	}
-
-	require("menu.php");
-	$consulta='SELECT cod_not,nom_not,pat_not,mat_not FROM notarios';
-	$result=mysqli($consulta);
-
-
-	?>
-
 	<div class="container">
 
 		<div class="row">
@@ -62,7 +47,7 @@
 				}
 				?>				
 
-				<form class="form-horizontal" method='post' name='fregistro' id='fregistro' action='nuevo-verifica.php' role='form'>
+				<form class="form-horizontal" method='post' name='fregistro' id='fregistro' action='../controller/nuevo-verifica.php' role='form'>
 					<p>Notario: <?php echo $_REQUEST['Notario'];?></p>
 
 					<div class="form-group">
@@ -106,7 +91,7 @@
 					<div class="form-group">
 						<label for="txt-fovorecido" class="col-sm-2 control-label">Favorecido :</label>
 						<div class="col-sm-6">
-							<input type="text" class="form-control" id="txt-favorecido" name="txt-favorecido" placeholder="Ingrese Favorecido">
+							<input type="text" class="form-control" id="txt-favorecido" name="txt-favorecido" placeholder="Ingrese Favorecido - Opcional">
 						</div>
 					</div>
 
@@ -141,7 +126,7 @@
 					<div class="form-group">
 						<label for="txt-bien" class="col-sm-2 control-label">Nombre del Bien :</label>
 						<div class="col-sm-6">
-							<input type="text" class="form-control" id="txt-bien" name="txt-bien" placeholder="Ingrese Nombre del Bien" required>
+							<input type="text" class="form-control" id="txt-bien" name="txt-bien" placeholder="Ingrese Nombre del Bien - opcional">
 						</div>
 					</div>
 
@@ -163,4 +148,7 @@
 
 	<?php
 	require("pie.php");
+	}else{
+		header("Location:../index.php");
+	}
 	?>

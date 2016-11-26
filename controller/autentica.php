@@ -1,22 +1,22 @@
 <?php
 	session_start();
 
-require_once ("../inc/Conection.php");
-$conn = new Conection();
-$link = $conn->Conection();
+	require_once ("../inc/Conection.php");
+	$conn = new Conection();
+	$link = $conn->Conection();
 
-$usuario = "indices";
-$clave   = "indices";
+	$usuario = "indices";
+	$clave   = "indices";
 
-$_SESSION['log_usu']['log_usu'] = $usuario = $_POST['txt-usuario'];
-$clave                          = $_POST['txt-clave'];
-$boton                          = $_POST['btn-aceptar'];
+	$_SESSION['log_usu']['log_usu'] = $usuario = $_POST['txt-usuario'];
+	$clave                          = $_POST['txt-clave'];
+	$boton                          = $_POST['btn-aceptar'];
 
-$sql = sprintf("SELECT cod_usu, psw_usu FROM usuarios WHERE log_usu = '%s' AND psw_usu='%s'", $usuario, $clave);
+	$sql = sprintf("SELECT cod_usu, psw_usu FROM usuarios WHERE log_usu = '%s' AND psw_usu='%s'", $usuario, $clave);
 
-$data = $link->query($sql);
-$fila = $data->fetch_array();
-echo $fila[0];
+	$data = $link->query($sql);
+	$fila = $data->fetch_array();
+	echo $fila[0];
 
 	//Almacenamos la cantidad de resultados (rows)
 	$nUsuario = $data->num_rows;

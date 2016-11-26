@@ -1,16 +1,21 @@
 <?php
-require ("cabecera.php");
-require_once ("inc/mysql.php");
+session_start();
 
-if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autenticado']) {
+if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autenticado'])
+{
+	require ("cabecera.php");
+	require_once("../inc/Conection.php");
+
+	//Conexion con Base de Datos
+	$conn = new Conection();
+	$link = $conn->Conection();
 	//llamamos a la clase
-	include "Proyectos.php";
-	$proyectos = new Proyectos();
-	$abierto   = $proyectos->ProyectoAbierto();
-	$cerrado   = $proyectos->ProyectoCerrado();
-} else {
-	header("Location:index.php");
-}
+	require_once "../model/Proyectos.php";
+	$proyecto = new Proyectos();
+	$proyecto->ProyectoAbierto();
+	$abierto   = $proyecto->ProyectoAbierto();
+	$cerrado   = $proyecto->ProyectoCerrado();
+
 
 require ("menu.php");
 
@@ -24,10 +29,10 @@ require ("menu.php");
 			<table class="table table-striped table-bordered table-condensed" >
 				<thead>
 					<tr>
-						<th>Código de Proyecto</th>
 						<th>Notario</th>
-						<th>Fecha de Inicio</th>
+						<th>Numero de Indice</th>
 						<th>Opciones</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -37,11 +42,12 @@ require ("menu.php");
 						$_SESSION['oPDF'][] = $lista1;
 						?>
 						<tr>
-							<td><?php echo $lista1['codProyecto'];?></td>
 							<td><?php echo $lista1['notario'];?></td>
-							<td><?php echo $lista1['fechaInicio'];?></td>
+							<td><?php echo $lista1['numIndice'];?></td>
+							<td><?php echo $lista1['fecCreacion'];?></td>
 							<td>
-								<a href="ingresoIndice.php?codProy=<?php echo $lista1['codProyecto'];?>&Notario=<?php echo $lista1['notario'];?>"><span class="glyphicon glyphicon-edit "></span>Continuar</a>
+
+								<a href="ingresoIndice.php?codProy=<?php echo $lista1['CodProyecto'];?>&Notario=<?php echo $lista1['notario'];?>"><span class="glyphicon glyphicon-edit "></span>Continuar</a>
 							</td>
 						</tr>
 						<?php
@@ -64,8 +70,8 @@ require ("menu.php");
 			<table class="table table-striped table-bordered table-condensed" >
 				<thead>
 					<tr>
-						<th>Código de Proyecto</th>
 						<th>Notario</th>
+						<th>Numero de Indice</th>
 						<th>Fecha de Inicio</th>
 						<th>Fecha de Cierre</th>
 					</tr>
@@ -77,16 +83,12 @@ require ("menu.php");
 						$_SESSION['oPDF'][] = $lista2;
 						?>
 						<tr>
-							<td><?php echo $lista2['codProyecto'];?></td>
+							
 							<td><?php echo $lista2['notario'];?></td>
-							<td><?php echo $lista2['fechaInicio'];?></td>
-							<td><?php echo $lista2['fechaInicio'];?></td>
-
-							<td>
-
-
-
-							</td>
+							<td><?php echo $lista2['numIndice'];?></td>
+							<td><?php echo $lista2['fecCreacion'];?></td>
+							<td><?php echo $lista2['fecTermino'];?></td>
+							
 						</tr>
 						<?php
 					}
@@ -109,5 +111,9 @@ require ("menu.php");
 
 <?php
 require ("pie.php");
+$_SESSION['proyecto'] = $lista1['CodProyecto'];
+} else {
+	header("Location:../index.php");
+}
 ?>
 
