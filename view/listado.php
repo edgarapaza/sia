@@ -1,23 +1,16 @@
 <?php
 session_start();
 
-if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autenticado'])
+if(!empty($_SESSION['personal']))
 {
-	require ("cabecera.php");
-	require_once("../inc/Conection.php");
 
-	//Conexion con Base de Datos
-	$conn = new Conection();
-	$link = $conn->Conection();
-	//llamamos a la clase
-	require_once "../model/Proyectos.php";
-	$proyecto = new Proyectos();
-	$proyecto->ProyectoAbierto();
-	$abierto   = $proyecto->ProyectoAbierto();
-	$cerrado   = $proyecto->ProyectoCerrado();
-
-
-require ("menu.php");
+require ("cabecera.php");
+//llamamos a la clase
+require_once "../model/proyectos.model.php";
+$proyecto = new Proyectos();
+$proyecto->ProyectoAbierto();
+$abierto   = $proyecto->ProyectoAbierto();
+$cerrado   = $proyecto->ProyectoCerrado();
 
 ?>
 <div class="container">
@@ -47,7 +40,7 @@ require ("menu.php");
 							<td><?php echo $lista1['fecCreacion'];?></td>
 							<td>
 
-								<a href="ingresoIndice.php?codProy=<?php echo $lista1['CodProyecto'];?>&Notario=<?php echo $lista1['notario'];?>"><span class="glyphicon glyphicon-edit "></span>Continuar</a>
+								<a href="ingresoIndice.php?codProy=<?php echo $lista1['CodProyecto'];?>&Notario=<?php echo $lista1['notario'];?>" class="btn btn-success"><span class="glyphicon glyphicon-edit "></span>Continuar</a>
 							</td>
 						</tr>
 						<?php
@@ -59,10 +52,12 @@ require ("menu.php");
 				</tfoot>
 			</table>
 
-			<div class="btn-group" role="group" aria-label="...">
-				<a href="listado.imprimir.php" class="btn btn-default" target="_blank"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir Lista</a>
+			<!--
+			<div class="btn-group" role="group" disabled="true">
+				<a href="listado.imprimir.php" class="btn btn-default" target="_blank" enabled="false"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir Lista</a>
 
 			</div>
+			-->
 
 
 
@@ -83,12 +78,12 @@ require ("menu.php");
 						$_SESSION['oPDF'][] = $lista2;
 						?>
 						<tr>
-							
+
 							<td><?php echo $lista2['notario'];?></td>
 							<td><?php echo $lista2['numIndice'];?></td>
 							<td><?php echo $lista2['fecCreacion'];?></td>
 							<td><?php echo $lista2['fecTermino'];?></td>
-							
+
 						</tr>
 						<?php
 					}
@@ -110,10 +105,10 @@ require ("menu.php");
 </div>
 
 <?php
-require ("pie.php");
+
 $_SESSION['proyecto'] = $lista1['CodProyecto'];
-} else {
-	header("Location:../index.php");
+
+}else{
+	header("Location: ../index.html");
 }
 ?>
-

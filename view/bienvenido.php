@@ -1,11 +1,15 @@
 <?php
-require("cabecera.php");
+session_start();
+require_once("../model/personal.model.php");
 
-if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autenticado']) {
-}else{
-	header("Location:index.php");
-}
-require("menu.php");
+if(!empty($_SESSION['personal']))
+{
+	require("cabecera.php");
+
+
+		$personal = new Personal();
+		$data = $personal->getPersonal($_SESSION['personal']);
+
 ?>
 
 <head>
@@ -26,16 +30,19 @@ require("menu.php");
 			<div class="col-md-12">
 				<div class="alert alert-info">
 					<h3>BIENVENIDO AL <span>SIA</span></h3>
+					<p><?php printf("Bienvenido(a): %s", $data['trabajador']); 	?></p>
 					<em><span>S</span>istema de <span>I</span>ndices del <span>A</span>rchivo Regional de Puno</em>
-					<?php
-					echo $_SESSION['log_usu']['log_usu'];
-					?>
+
 				</div>
 			</div>
 			<div class="col-md-12">
-				<h3>Busqueda por Indices</h3>
-				<p>Utilize este boton para buscar el los INDICES digitalizados</p>
-				<a href="buscarIndice.php" class="btn btn-success">Comenzar la Busqueda  -->  </a>
+
+				<h3>Ingresar Datos del Notario: Luis Jimenez Vargas de HUANCANE</h3>
+
+				<br>
+				<br>
+				<a href="listado.php" class="btn btn-primary">Ingresar Datos</a>
+
 			</div>
 
 		</div>
@@ -44,9 +51,8 @@ require("menu.php");
 
 </body>
 </html>
-
-
 <?php
-require("pie.php");
+}else{
+	header("Location: ../index.html");
+}
 ?>
-

@@ -1,20 +1,16 @@
 <?php
 session_start();
-
-if(isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autenticado'])
-{
-	
-	include "cabecera.php";
-	include "menu.php";
-	
+include "cabecera.php";
 ?>
 
 <div class="container">
-
 	<div class="row">
-		<div class="col-md-12">
+		<h3 class="alert alert-success">Buscador de Índices</h3>
+	</div>
+	<div class="row">
 
-			<center><h3>Buscador de Índices</h3></center>
+		<div class="col">
+
 			<?php
 			if (isset($_SESSION['mensaje']) AND $_SESSION['mensaje'] != '') {
 				?>
@@ -23,104 +19,92 @@ if(isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autentica
 				</div>
 				<?php
 			}
-			?>				
+			?>
 
-			<form class="form-horizontal" action='buscarTodo.php' method='post' name='fregistro' id='fregistro' role='form'>
+			<form class="form-inline" action='buscarTodo.php' method='post' name='fregistro' id='fregistro' role='form'>
 				<div class="form-group">
-					<label for="txtTodo" class="col-sm-2 control-label">Buscar Todo :</label>
-					<div class="col-sm-2">
+					<div class="">
 						<button type="submit" name="todo" value="todo" href="#listaIndice.php"  class="btn btn-primary" > <span class="glyphicon glyphicon-search"></span> Buscar Todo</button>
 					</div>
 				</div>
 			</form>
 
-			<form class="form-horizontal" action='buscarNotario.php' method='post' name='fregistro' id='fregistro' role='form'>
+			<form class="form-inline" action='buscarNotario.php' method='post' name='fregistro' id='fregistro' role='form'>
 				<div class="form-group">
-					<label for="txtNotario" class="col-sm-2 control-label">Buscar por Notario :</label>
-					<div class="col-sm-6">
+					<label class="formGroupExampleInput" for="txtNotario">Buscar por Notario :</label>
 
 						<select class="form-control" id="txtNotario" name="txtNotario" >
 							<option value="0">SELECCIONE NOTARIO</option>
-							<option value="21">Miguel Pino Chavez</option>
+							<option value="55">Luis Jimenez Vargas (Huancane)</option>
+							<option value="21">Miguel Pino Chavez (Puno)</option>
+							<option value="100">Hector Garnica Rosado (Puno)</option>
 						</select>
 
-					</div>
-					<div class="col-sm-2">
+
 						<button type="submit" name="notario" value="notario" class="btn btn-primary" > <span class="glyphicon glyphicon-search"></span> Buscar Por Notario</button>
-					</div>
-				</div>	
+
+
+				</div>
 			</form>
 
-				<form class="form-horizontal" action='buscarOtorgante.php' method='post' name='fregistro' id='fregistro' role='form'>
-					<div class="form-group">
-						<label for="txtOtorgante" class="col-sm-2 control-label">Buscar por Otorgante :</label>
-						<div class="col-sm-4">
-							<input type="search" class="form-control" id="txtOtorgante" name="txtOtorgante" placeholder="Ingrese el Otorgante">
-						</div>
-						<div class="col-sm-2">
-							<button type="submit" name="otorgante" value="otorgante" class="btn btn-primary" > <span class="glyphicon glyphicon-search"></span> Buscar Por Otorgante</button>
-						</div>
-					</div>
-				</form>
+			<form class="form-inline" action='buscarOtorgante.php' method='post' name='fregistro' id='fregistro' role='form'>
+				<div class="form-group">
+					<label class="formGroupExampleInput" for="txtOtorgante">Buscar por Otorgante :</label>
 
-				<form class="form-horizontal" action='buscarFavorecido.php' method='post' name='fregistro' id='fregistro' role='form'>
-					<div class="form-group">
-						<label for="txtFavorecido" class="col-sm-2 control-label">Buscar por Favorecido :</label>
-						<div class="col-sm-4">
-							<input type="text" class="form-control" id="txtFavorecido" name="txtFavorecido" placeholder="Ingrese el Favorecido">
-						</div>
-						<div class="col-sm-2">
-							<button type="submit" name="favorecido" value="favorecido" class="btn btn-primary" > <span class="glyphicon glyphicon-search"></span> Buscar Por Favorecido</button>
-						</div>
-					</div>
-				</form>
+						<input type="search" class="form-control" id="txtOtorgante" name="txtOtorgante" placeholder="Ingrese el Otorgante">
 
-				<form class="form-horizontal" action='buscarFecha.php' method='post' name='fregistro' id='fregistro' role='form'>
 					<div class="form-group">
-						<label for="txtFecha" class="col-sm-2 control-label">Buscar por Fecha :</label>
-						<div class="col-sm-2">
-							<input type="date" class="form-control" id="txtFecha" name="txtFecha" placeholder="<?php echo $fecha = date('Y-m-d');?>" maxlength="10">Formato: Año-Mes-Día
-						</div>
-						<div class="col-sm-2">
-							<button type="submit" name="fecha" value="fecha" class="btn btn-primary" > <span class="glyphicon glyphicon-search"></span> Buscar Por Fecha</button>
-						</div>
+						<button type="submit" name="otorgante" value="otorgante" class="btn btn-primary" > <span class="glyphicon glyphicon-search"></span> Buscar Por Otorgante</button>
 					</div>
-				</form>
+				</div>
+			</form>
 
-				<form class="form-horizontal" action='buscarSerie.php' method='post' name='fregistro' id='fregistro' role='form'>
-					<div class="form-group">
-						<label for="txtSerie" class="col-sm-2 control-label">Buscar por Serie :</label>
-						<div class="col-sm-4">
-							<input type="text" class="form-control" id="txtSerie" name="txtSerie" placeholder="Ingrese la Serie">
-						</div>
-						<div class="col-sm-2">
-							<button type="submit" name="serie" value="serie" class="btn btn-primary" > <span class="glyphicon glyphicon-search"></span> Buscar Por Serie</button>
-						</div>
-					</div>
-				</form>
+			<form class="form-inline" action='buscarFavorecido.php' method='post' name='fregistro' id='fregistro' role='form'>
+				<div class="form-group">
+					<label class="formGroupExampleInput" for="txtFavorecido">Buscar por Favorecido :</label>
 
-				<form class="form-horizontal" action='buscarBien.php' method='post' name='fregistro' id='fregistro' role='form'>
-					<div class="form-group">
-						<label for="txtBien" class="col-sm-2 control-label">Buscar por Nombre del Bien :</label>
-						<div class="col-sm-4">
-							<input type="text" class="form-control" id="txtBien" name="txtBien" placeholder="Ingrese el Nombre del Bien">
-						</div>
-						<div class="col-sm-2">
-							<button type="submit" name="bien" value="bien" class="btn btn-primary" > <span class="glyphicon glyphicon-search"></span> Buscar Por Nombre del Bien</button>
-						</div>
-					</div>
-				</form>
+						<input type="text" class="form-control" id="txtFavorecido" name="txtFavorecido" placeholder="Ingrese el Favorecido">
 
-			</div>
+						<button type="submit" name="favorecido" value="favorecido" class="btn btn-primary" > <span class="glyphicon glyphicon-search"></span> Buscar Por Favorecido</button>
+
+				</div>
+			</form>
+
+			<form class="form-inline" action='buscarFecha.php' method='post' name='fregistro' id='fregistro' role='form'>
+				<div class="form-group">
+					<label class="formGroupExampleInput" for="txtFecha">Buscar por Fecha :</label>
+
+						<input type="date" class="form-control" id="txtFecha" name="txtFecha" placeholder="<?php echo $fecha = date('Y-m-d');?>" maxlength="10">Formato: Año-Mes-Día
+
+						<button type="submit" name="fecha" value="fecha" class="btn btn-primary" > <span class="glyphicon glyphicon-search"></span> Buscar Por Fecha</button>
+
+				</div>
+			</form>
+
+			<form class="form-inline" action='buscarSerie.php' method='post' name='fregistro' id='fregistro' role='form'>
+				<div class="form-group">
+					<label class="formGroupExampleInput" for="txtSerie">Buscar por Serie :</label>
+
+						<input type="text" class="form-control" id="txtSerie" name="txtSerie" placeholder="Ingrese la Serie">
+
+						<button type="submit" name="serie" value="serie" class="btn btn-primary" > <span class="glyphicon glyphicon-search"></span> Buscar Por Serie</button>
+
+				</div>
+			</form>
+
+			<form class="form-inline" action='buscarBien.php' method='post' name='fregistro' id='fregistro' role='form'>
+				<div class="form-group">
+					<label class="formGroupExampleInput" for="txtBien">Buscar por Nombre del Bien :</label>
+
+						<input type="text" class="form-control" id="txtBien" name="txtBien" placeholder="Ingrese el Nombre del Bien">
+
+						<button type="submit" name="bien" value="bien" class="btn btn-primary" > <span class="glyphicon glyphicon-search"></span> Buscar Por Nombre del Bien</button>
+
+				</div>
+			</form>
+
 		</div>
+
 	</div>
-
-	
-
-	<?php
-	require("pie.php");
-	}else{
-	header("Location:../index.php");
-	}
-	?>
+</div>
 

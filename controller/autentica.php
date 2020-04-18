@@ -1,44 +1,32 @@
 <?php
-	session_start();
+session_start();
+require_once ("../model/login.model.php");
 
-	require_once ("../inc/Conection.php");
-	$conn = new Conection();
-	$link = $conn->Conection();
+$user = $_POST['txtusuario'];
+$pass = $_POST['txtpassword'];
 
-	$usuario = "indices";
-	$clave   = "indices";
+$login = new Login();
+$data = $login->Acceso($user,$pass);
 
-	$_SESSION['log_usu']['log_usu'] = $usuario = $_POST['txt-usuario'];
-	$clave                          = $_POST['txt-clave'];
-	$boton                          = $_POST['btn-aceptar'];
+	if ($data['cod_usu'] > 0){
 
-	$sql = sprintf("SELECT cod_usu, psw_usu FROM usuarios WHERE log_usu = '%s' AND psw_usu='%s'", $usuario, $clave);
+		switch ($data['niv_usu']) {
+			case 1:
+				# Administrador
+				$_SESSION['personal'] = $data['cod_usu'];
+				header("Location: ../admin/index.php");
+				break;
+			case 2:
+				# Personal
+				$_SESSION['personal'] = $data['cod_usu'];
+				header("Location: ../view/bienvenido.php");
+				break;
 
-	$data = $link->query($sql);
-	$fila = $data->fetch_array();
-	echo $fila[0];
-
-	//Almacenamos la cantidad de resultados (rows)
-	$nUsuario = $data->num_rows;
-	
-	//Cuando solo existe un usuario
-	if ($nUsuario == 1) 
-	{
-		
-		if ($fila[1] == $clave)
-		{
-			$_SESSION['log_usu']['nombre']      = TRUE;
-			$_SESSION['log_usu']['autenticado'] = TRUE;
-			$_SESSION['log_usu']['id']          = $fila[0];
-			header("Location:../view/bienvenido.php");
+			default:
+				# code...
+				break;
 		}
-
+	}else{
+		echo "Vacio";
+		header("Location: ../index.html");
 	}
-	if ($nUsuario == 0) 
-	{
-		$msg = "El usuario o contraseña son incorrectos.  Vuelva a intentarlo";
-		header("Location: ../index.php?msg=".$msg);
-	}
-
-
-?>

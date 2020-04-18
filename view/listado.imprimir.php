@@ -1,8 +1,4 @@
 <?php
-if (!isset($_SESSION)) {
-	session_start();
-}
-
 require_once "fpdf.php";
 
 class PDF extends FPDF {
@@ -22,12 +18,12 @@ class PDF extends FPDF {
 		$this->SetFont('arial','B',12);
 		$this->Cell(0,5,utf8_decode("Listado de Proyectos en Indexación"), 0, 0, 'C');
 		$this->Ln();
-		
+
 		$this->Ln(4);
 		$this->cabecera();
-		
+
 	}
-	
+
 	function cabecera()
 	{
 		$this->SetFont('arial','B',7);
@@ -35,12 +31,12 @@ class PDF extends FPDF {
 		$this->Cell(13,5,'CODIGO', 1, 0, 'C');
 		$this->Cell(60,5,'NOMBRE NOTARIO', 1, 0, 'C');
 		$this->Cell(60,5,'FECHA DE INICIO', 1, 0, 'C');
-		
+
 		//$this->Cell(30,5,'CLAVE', 1, 0, 'C');
 		$this->Ln();
 		$this->Ln(1);
 	}
-	
+
 	function Footer()
 	{
 		$vFecha = getdate(time());
@@ -53,7 +49,7 @@ class PDF extends FPDF {
 
 	}
 	function Body($usuarios)
-	{			
+	{
 		//global $sEstupdf;
 		$this->SetFont('arial','',8);
 		$vCont = 1;
@@ -63,7 +59,7 @@ class PDF extends FPDF {
 			$this->Cell(60,5, ucwords(strtolower($usuario['notario'])), 'B', 0, 'L');
 			//$this->Cell(60,5, ucwords(strtolower($usuario['paterno'].' '.$usuario['materno'].' '.$usuario['nombres'])), 'B', 0, 'L');
 			$this->Cell(60,5, ucwords(strtolower($usuario['fechaInicio'])), 'B', 0, 'L');
-			
+
 			//$this->Cell(30,5,$usuario['clave'], 'B', 0, 'C');
 			$this->Ln();
 			$vCont++;

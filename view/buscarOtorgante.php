@@ -1,19 +1,17 @@
 <?php
 session_start();
 
-if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autenticado'])
-{
 	require("cabecera.php");
-	require("menu.php");
-	require_once("../inc/Conection.php");
+
+	require_once("../model/Conexion.php");
 
 	//Conexion con Base de Datos
-	$conn = new Conection();
-	$link = $conn->Conection();
+	$conn = new Conexion();
+	$link = $conn->Conectar();
 
 	$otorgante=$_POST["txtOtorgante"];
 
-	$sql = "SELECT indices.codIndice,CONCAT(Notario.nom_not,' ',Notario.mat_not,' ',Notario.pat_not) AS notario,indices.otorgante,indices.favorecido,indices.fecha,indices.subserie,indices.folio,indices.escritura,indices.bien 
+	$sql = "SELECT indices.codIndice,CONCAT(Notario.nom_not,' ',Notario.mat_not,' ',Notario.pat_not) AS notario,indices.otorgante,indices.favorecido,indices.fecha,indices.subserie,indices.folio,indices.escritura,indices.bien
 	FROM indices INNER JOIN Notario ON indices.codNotario=Notario.codNotario WHERE indices.otorgante LIKE '%$otorgante%'";
 
 
@@ -22,15 +20,15 @@ if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autentic
 
 ?>
 
-<div class="container">
+<div class="container-fluid">
 
 	<div class="row">
 		<div class="col-md-12">
 
 			<center><h3>Lista de Índices por Otorgantes</h3></center>
 			<?php echo "<h4>Número de Índices Encontrados: $total Índices</h4> " ?>
-			
-			<table class="table table-striped table-bordered table-condensed" >
+
+			<table class="table table-striped table-bordered table-responsive" >
 				<thead>
 					<tr>
 						<th>Número</th>
@@ -42,7 +40,7 @@ if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autentic
 						<th>Folio</th>
 						<th>Escritura</th>
 						<th>Nombre del Bien</th>
-					</tr>				
+					</tr>
 				</thead>
 				<tbody>
 					<?php
@@ -62,33 +60,25 @@ if (isset($_SESSION['log_usu']['autenticado']) && $_SESSION['log_usu']['autentic
 							<td><?php echo $lista1['bien'];?></td>
 
 							<td>
-								<a href="#"><span class="glyphicon glyphicon-edit "></span>Editar</a> 
+								<a href="#"><span class="glyphicon glyphicon-edit "></span>Editar</a>
 
 							</td>
 						</tr>
 						<?php
 					}
-					?>				
+					?>
 				</tbody>
 				<tfoot>
-					
+
 				</tfoot>
 			</table>
 
 			<div class="btn-group" role="group" aria-label="...">
 				<a href="listado.imprimir.php" class="btn btn-default" target="_blank"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir Lista</a>
 
-			</div>	
+			</div>
 
 		</div>
 	</div>
 
 </div>
-
-<?php
-require("pie.php");
-}else{
-	header("Location:../index.php");
-}
-?>
-
