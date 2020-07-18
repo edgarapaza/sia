@@ -1,5 +1,5 @@
 <?php
-
+session_start();
   include "header.php";
   include_once "model/notario.model.php";
   include_once "model/proyectos.model.php";
@@ -10,42 +10,52 @@
 
   $revision = new Revision();
 
+  $year = $_REQUEST['year'];
+  $_SESSION['year'] = $year;
 ?>
 
 <style>
   .btns{
-
     display: flex;
     align-item: center;
-    space
+  }
+  body{
+    background-color: rgb(31.6%, 31.6%, 31.6%);
   }
 </style>
 
 <div class="container">
   <div class="row">
     <div class="col">
+
       <h2>
         Listado de Ingresos para revision
       </h2>
     </div>
     <div class="col">
-      Seleccionar el Notario a Revisar
-      <select name="notario" id="notario">
-        <option value="0">[Seleccione]</option>
-        <?php
-          while ($fila = $data->fetch_array(MYSQLI_ASSOC)) {
-            //printf("Cod: %s Notario: %s" , $fila['CodProyecto'], $fila['codNotario']);
-            $notarios = new Notarios();
-            $name_notario = $notarios->NombreNotario($fila['codNotario']);
+      <form action="">
+        Seleccionar el Notario a Revisar
+        <select name="notario" id="notario">
+          <option value="0">[Seleccione]</option>
+          <?php
+            while ($fila = $data->fetch_array(MYSQLI_ASSOC)) {
+              //printf("Cod: %s Notario: %s" , $fila['CodProyecto'], $fila['codNotario']);
+              $notarios = new Notarios();
+              $name_notario = $notarios->NombreNotario($fila['codNotario']);
 
-            echo "<option value=".$fila['codNotario'].">".$name_notario['notario']."</option>";
-          }
-        ?>
-      </select>
+              echo "<option value=".$fila['codNotario'].">".$name_notario['notario']."</option>";
+            }
+          ?>
+        </select>
+        Año Revision: <input type="text" name="year" id="year">
+        <button type="submit">Revisar</button>
+
+      </form>
     </div>
   </div>
 
   <div class="row">
+  <p>Año <?php echo $_SESSION['year'];?></p>
     <div id="respuesta" class="alert alert-success"></div>
     <table class="table">
       <tr>
@@ -63,7 +73,7 @@
       <?php
         $i = 1;
         //Revision del notario LUIS JIMENEZ VARGAS - 55
-        $data_rev = $revision->RevisarxNotario(55);
+        $data_rev = $revision->RevisarxNotario(55,$_SESSION['year']);
         while ($row_r = $data_rev->fetch_array(MYSQLI_ASSOC)):
       ?>
         <tr>

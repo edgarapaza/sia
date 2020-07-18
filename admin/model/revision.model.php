@@ -11,11 +11,16 @@ class Revision
 		return $this->con;
   }
 
-  public function RevisarxNotario($idnotario)
+  public function RevisarxNotario($idnotario=55, $year="1929")
   {
    $sql = "SELECT codIndice,codNotario,otorgante,favorecido,fecha,subserie,
-   folio,escritura,bien,codProyecto,idpersonal FROM indices
-   WHERE codNotario = $idnotario AND revisado = 0 LIMIT 20;";
+   folio,escritura,bien,codProyecto,idpersonal
+   FROM indices
+   WHERE codNotario = $idnotario AND
+		fecha LIKE '$year%' AND
+		revisado = 0
+   order by escritura
+   LIMIT 20;";
 
    if(!$result = $this->con->query($sql)) {
        echo "Error: " . mysqli_error($this->con) ;

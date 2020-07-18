@@ -30,7 +30,7 @@
         <table class="table">
           <tr>
             <td width="150">Materia</td>
-            <input type="hidden" name="codIndice" value="<?php echo $idindice;?>">
+            <input type="text" name="codIndice" id="codIndice" value="<?php echo $idindice;?>">
             <td><input type="text" name="materia" class="form-control" value="<?php echo $data['subserie'];?>"></td>
           </tr>
           <tr>
@@ -61,6 +61,8 @@
           <tr>
             <td><a href="revision.php" class="btn btn-danger" id="btnCancelar"><span id="texto">Cancelar</span> </a></td>
             <td><button type="submit" id="btnSaveChanges" class="btn btn-success">Guardar Cambios</button></td>
+            <td><button type="button" id="btnSaveClose" class="btn btn-info">Guardar Cambios y cerrar</button></td>
+
           </tr>
 
         </table>
@@ -79,8 +81,6 @@ var btnAtras = document.querySelector("#texto");
 
     $("#btnSaveChanges").click(function(event){
       event.preventDefault();
-      console.log("Presionando");
-
 
       $.ajax({
         type: "POST",
@@ -102,6 +102,28 @@ var btnAtras = document.querySelector("#texto");
             alert("error al hacer consulta");
         }
       });
+    });
+
+
+    $("#btnSaveClose").click(function (event) {
+      event.preventDefault();
+      var codigo = $("#codIndice").val();
+      console.log(codigo);
+
+      $.ajax({
+        type: "POST",
+        url: "./controller/revision.controller.php",
+        data: {"idindice": codigo},
+        success: function(data){
+          $("#respuesta").empty();
+          //$("#respuesta").html(data);
+          $("#respuesta").html('Registro Verificado y guardado').show(200).delay(2500).hide(200);
+        },
+        error: function(){
+          alert("error al hacer consulta");
+        }
+      });
+
     });
 
   });
