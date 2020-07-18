@@ -33,6 +33,9 @@
             <li class="nav-item">
               <a class="nav-link" href="revision.php">Revision de Indices</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="reportes.php">Reportes</a>
+            </li>
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item">
