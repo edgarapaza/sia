@@ -3,13 +3,13 @@ require_once("Conexion.php");
 
 class Proyectos
 {
-	private $con;
+    private $con;
 
-	function __construct() {
+    function __construct() {
 
-		$conexion = new Conexion();
-		$this->con = $conexion->Conectar();
-		return $this->con;
+        $conexion = new Conexion();
+        $this->con = $conexion->Conectar();
+        return $this->con;
   }
 
   public function ProyectosSinCerrar()

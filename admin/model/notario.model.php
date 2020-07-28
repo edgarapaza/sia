@@ -5,7 +5,7 @@ class Notarios
 {
     private $con;
 
-    private function __construct() {
+    function __construct() {
         $conexion = new Conexion();
         $this->con = $conexion->Conectar();
         return $this->con;

@@ -1,9 +1,9 @@
 <?php
 session_start();
-  include "header.php";
-  include_once "model/notario.model.php";
-  include_once "model/proyectos.model.php";
-  include_once "model/revision.model.php";
+  require_once "header.php";
+  require_once "model/notario.model.php";
+  require_once "model/proyectos.model.php";
+  require_once "model/revision.model.php";
 
   $proyectos = new Proyectos();
   $data = $proyectos->ProyectosSinCerrar();
@@ -19,20 +19,18 @@ session_start();
     display: flex;
     align-item: center;
   }
-  body{
-    background-color: rgb(31.6%, 31.6%, 31.6%);
-  }
+
 </style>
 
 <div class="container">
   <div class="row">
-    <div class="col">
-
+    <div class="col-6">
       <h2>
         Listado de Ingresos para revision
       </h2>
+      <div id="respuesta" class="alert alert-success"></div>
     </div>
-    <div class="col">
+    <div class="col-6">
       <form action="">
         Seleccionar el Notario a Revisar
         <select name="notario" id="notario">
@@ -47,7 +45,8 @@ session_start();
             }
           ?>
         </select>
-        Año Revision: <input type="text" name="year" id="year">
+        <label for="">Escriba el Año a revisar:</label>
+         <input type="text" name="year" id="year">
         <button type="submit">Revisar</button>
 
       </form>
@@ -55,8 +54,8 @@ session_start();
   </div>
 
   <div class="row">
-  <p>Año <?php echo $_SESSION['year'];?></p>
-    <div id="respuesta" class="alert alert-success"></div>
+    <p>Año:  <?php echo $_SESSION['year'];?></p>
+
     <table class="table">
       <tr>
         <th>Id.</th>
@@ -140,7 +139,7 @@ function check(idindice)
         function()
         {
           location.reload();
-        }, 3000);
+        }, 1000);
         }
   });
 
