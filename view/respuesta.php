@@ -2,6 +2,11 @@
 session_start();
 require("cabecera.php");
 
+$codProy = $_REQUEST['codProy'];
+$notario = $_REQUEST['Notario'];
+$codNot = $_REQUEST['codNot'];
+
+
 	//echo "Session Proyecto: ".$_SESSION['proyecto'];
 	$msg = $_GET['msg'];
 
@@ -16,7 +21,7 @@ require("cabecera.php");
 					<br>
 					<p>Recuerda que con este trabajo, nos ¡beneficiamos todos!, y estamos contribuyendo a mejorar nuestra institución. Contamos con tu apoyo a mejorar nuestros servicios.  ¡Si puedes hacerlo!</p>
 					<br>
-					<a href='ingresoIndice.php?codProy=".$_SESSION['proyecto']."' class='btn btn-primary'>Listo!... Ingresar otro</a>
+					<a href='ingresoIndice.php?codProy=".$codProy."&Notario=".$notario."&codNot=".$codNot."' class='btn btn-primary'>Listo!... Ingresar otro</a>
 				</div>
 			</div>
 		</div>
@@ -33,7 +38,7 @@ require("cabecera.php");
 					<h3>¡Gracias por su colaboración! pero esta información se encuentra DUPLICADA.</h3>
 					<p>Por favor ingresa el siguiente. ¡Si puedes hacerlo!</p>
 					<br><br><br>
-					<a href='ingresoIndice.php?codProy=".$_SESSION['proyecto']."' class='btn btn-primary'>Listo!... Ingresar otro</a>
+					<a href='ingresoIndice.php?codProy=".$codProy."&Notario=".$notario."&codNot=".$codNot."' class='btn btn-primary'>Listo!... Ingresar otro</a>
 				</div>
 			</div>
 		</div>

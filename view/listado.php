@@ -13,6 +13,12 @@ $abierto   = $proyecto->ProyectoAbierto();
 $cerrado   = $proyecto->ProyectoCerrado();
 
 ?>
+
+<style>
+  body{
+    color: white;
+  }
+</style>
 <div class="container">
 
 	<div class="row">
@@ -24,14 +30,15 @@ $cerrado   = $proyecto->ProyectoCerrado();
 					<tr>
 						<th>Notario</th>
 						<th>Numero de Indice</th>
+						<th>Fec. Creación</th>
+						<th>Estado</th>
 						<th>Opciones</th>
-						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php
 					$_SESSION['oPDF'] = array();
-					while ($lista1 = $abierto->fetch_assoc()) {
+					while ($lista1 = $abierto->fetch_assoc()):
 						$_SESSION['oPDF'][] = $lista1;
 						?>
 						<tr>
@@ -40,16 +47,33 @@ $cerrado   = $proyecto->ProyectoCerrado();
 							<td><?php echo $lista1['fecCreacion'];?></td>
 							<td>
 
-								<a href="ingresoIndice.php?codProy=<?php echo $lista1['CodProyecto'];?>&Notario=<?php echo $lista1['notario'];?>" class="btn btn-success"><span class="glyphicon glyphicon-edit "></span>Continuar</a>
+								<?php
+
+								switch($lista1['estado'])
+								{
+								case 'EN REVISION':
+									echo "<div class='alert alert-danger'>".$lista1['estado']."</div>";
+									break;
+								case 'NO CONCLUIDO':
+									echo "<div class='alert alert-info'>".$lista1['estado']."</div>";
+									break;
+								case 'NUEVO':
+									echo "<div style='background-color: yellow;color:red;'>".$lista1['estado']."</div>";
+									break;
+								}
+
+								?>
+
+							</td>
+							<td>
+								<a href="ingresoIndice.php?codProy=<?php echo $lista1['CodProyecto'];?>&Notario=<?php echo $lista1['notario'];?>&codNot=<?php echo $lista1['codNotario'];?>" class="btn btn-success"><span class="glyphicon glyphicon-edit "></span>Continuar</a>
 							</td>
 						</tr>
 						<?php
-					}
+					endwhile;
 					?>
 				</tbody>
-				<tfoot>
 
-				</tfoot>
 			</table>
 
 			<!--

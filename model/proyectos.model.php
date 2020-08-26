@@ -35,13 +35,13 @@ class Proyectos
 	}
 
 	public function ProyectoAbierto() {
-		$sql   = "SELECT p.CodProyecto, CONCAT(n.nom_not,' ',n.pat_not,' ',n.mat_not) AS notario, p.numIndice, p.fecCreacion FROM Proyecto AS p, Notario AS n WHERE p.CodNotario = n.codNotario AND p.terminado=0;";
+		$sql   = "SELECT p.CodProyecto, CONCAT(n.nom_not,' ',n.pat_not,' ',n.mat_not) AS notario,n.codNotario, p.numIndice, p.fecCreacion,p.estado FROM Proyecto AS p, Notario AS n WHERE p.CodNotario = n.codNotario AND p.terminado=0;";
 		$datos = $this->con->query($sql);
 		return $datos;
 	}
 
 	public function ProyectoCerrado() {
-		$sql   = "SELECT p.CodProyecto, CONCAT(n.nom_not,' ',n.mat_not,' ',n.pat_not) AS notario, p.numIndice, p.fecTermino, p.fecCreacion FROM Proyecto AS p, Notario AS n WHERE p.CodNotario = n.codNotario AND p.terminado=1;";
+		$sql   = "SELECT p.CodProyecto, CONCAT(n.nom_not,' ',n.mat_not,' ',n.pat_not) AS notario,n.codNotario, p.numIndice, p.fecTermino, p.fecCreacion FROM Proyecto AS p, Notario AS n WHERE p.CodNotario = n.codNotario AND p.terminado=1;";
 		$datos = $this->con->query($sql);
 		return $datos;
 	}

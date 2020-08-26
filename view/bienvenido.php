@@ -21,7 +21,11 @@ if(!empty($_SESSION['personal']))
 		}
 		em{
 			font-size: 14px;
-		}
+    }
+    .rojo{
+      font-weight: bold;
+      color: red;
+    }
 	</style>
 </head>
 <body bgcolor="#0087FF">
@@ -30,18 +34,25 @@ if(!empty($_SESSION['personal']))
 			<div class="col-md-12">
 				<div class="alert alert-info">
 					<h3>BIENVENIDO AL <span>SIA</span></h3>
-					<p><?php printf("Bienvenido(a): %s", $data['trabajador']); 	?></p>
-					<em><span>S</span>istema de <span>I</span>ndices del <span>A</span>rchivo Regional de Puno</em>
+					<h3><?php printf("Bienvenido(a): %s", $data['trabajador']); 	?></h3>
 
 				</div>
 			</div>
 			<div class="col-md-12">
+        <h2>Comunicado</h2>
+        <h4>Lamentamos los inconvenientes del dia de hoy martes 25 de agosto de 2020, debido a que se han realizado cambios
+          en el sistema, motivo por el cual se han agregado nuevos campos a la base de datos, y cambiado la vista de Reportes.
+          Esto ha generado que algunos codigos hayan provocado errores, pero la información no ha sufrido ningun daño.
 
-				<h3>Ingresar Datos del Notario: Luis Jimenez Vargas de HUANCANE</h3>
+        </h4>
 
-				<br>
-				<br>
-				<a href="listado.php" class="btn btn-primary">Ingresar Datos</a>
+        <h4>Rogamos su comprensión, e informarles que el <span class="rojo">Sistema ya se ha restablecido</span> y se han realizado las pruebas correspondientes, y
+          ya no existen problemas, por lo que se puede continuar con el trabajo remoto.
+        </h4>
+        <h3 class="alert alert-success">Ya tenemos 16,205 Escrituras (Luis Jimenez) hasta la fecha
+          y del nuevo notario (Jorge Cuentas) 417 Escrituras ingresadas.  Gracias por su trabajo.</h3>
+
+				<a href="listado.php" class="btn btn-success btn-lg">Ingresar Datos</a>
 
 			</div>
 

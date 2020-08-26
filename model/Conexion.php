@@ -6,7 +6,7 @@ class Conexion
 	{
 		$host = "localhost";
 		$user = "usuario";
-		$pass = "A@dmin0215.,$";
+		$pass = "Archivo123$";
 		$db   = "indices";
 
 		$mysqli = new mysqli($host, $user, $pass, $db);

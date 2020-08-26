@@ -36,9 +36,9 @@ class Indices
 
 		public function Insertar($data)
 		{
-			extract($data);
-			$sql = sprintf("INSERT INTO indices (otorgante,favorecido,fecha,subserie,folio,escritura,bien,codProyecto,codNotario,idpersonal)
-				VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')", $otorgante,$favorecido,$fecha,$subserie,$folio,$escritura,$bien,$codProyecto,$codNotario,$idpersonal);
+      extract($data);
+      $sql = "INSERT INTO indices (codNotario,otorgante,favorecido,fecha,subserie,folio,escritura,minuta,bien,tomo,codProyecto,idpersonal,fecCreate,corregido,revisado) VALUES ('$codNotario','$otorgante','$favorecido','$fecha','$subserie','$folio','$escritura','$minuta','$bien','$tomo','$codProyecto','$idpersonal',now(),0,0);";
+			echo $sql;
 			if(!$this->con->query($sql))
 			{
 				echo "Error: " . mysqli_error($this->con);
